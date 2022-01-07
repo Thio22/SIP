@@ -6,6 +6,7 @@ class Welcome extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('mDatabase');
+        $this->load->model('mUmum');
 		$this->load->library('recaptcha');
 	}
 	public function index()
@@ -21,7 +22,8 @@ class Welcome extends CI_Controller {
                 $this->mDatabase->insert('tb_email',$pesan);
             }
         }
-        $data['umum'] = $this->mDatabase->get('tb_umum')->row();
+        // $data['umum'] = $this->mDatabase->get("tb_umum")->row(); --> bila pakai model mDatabase
+        $data['umum'] = $this->mUmum->ambilDataUmum()->row();
         $data['slider'] = $this->mDatabase->get_where('tb_gambar', array('jenis'=>'slider'));
         $data['recaptcha'] = array(
             'widget' => $this->recaptcha->getWidget(),
